@@ -24,21 +24,24 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn_play;
-    MediaPlayer mediaPlayer;
-
+    Button btnSiren;
+    SoundPool soundPool;
+    int soundID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_first);
 
-        btn_play = findViewById(R.id.button_siren);
-        btn_play.setOnClickListener(new View.OnClickListener() {
+        btnSiren = (Button) findViewById(R.id.button_siren);
+        soundPool = new SoundPool(5, AudioManager.STREAM_MUSIC,0);
+        soundID = soundPool.load(this,R.raw.siren,1);
+
+
+        btnSiren.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.siren);
-                mediaPlayer.start();
+            public void onClick(View v) {
+                soundPool.play(soundID,1f,1f,0,0,1f);
             }
         });
 
